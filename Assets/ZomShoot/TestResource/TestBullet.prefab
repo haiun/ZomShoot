@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1912616652713812863}
   m_Layer: 0
   m_Name: TestBullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RigidBody: {fileID: 1912616652713812863}
-  Speed: 1000
+  Speed: 2500
 --- !u!135 &4286462772212368786
 SphereCollider:
   m_ObjectHideFlags: 0
