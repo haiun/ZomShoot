@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
+        StartCoroutine(StartUp());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator StartUp()
     {
-        
+        while (UICamera.currentCamera == null)
+            yield return new WaitForEndOfFrame();
+
+        SceneManager.Inst.Initailze<TitleScene>(null);
+        yield break;
     }
 }
