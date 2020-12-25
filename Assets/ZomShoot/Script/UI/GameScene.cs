@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GameSceneInitData : ISceneInitData
+{
+    public GameInstance GameInstance = null;
+}
+
 [PrefabPath("UI/GameScene")]
 public class GameScene : SceneBase
 {

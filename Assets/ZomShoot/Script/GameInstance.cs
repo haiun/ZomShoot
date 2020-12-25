@@ -15,7 +15,10 @@ public class GameInstance : MonoBehaviour
         while (UICamera.currentCamera == null)
             yield return new WaitForEndOfFrame();
 
-        SceneManager.Inst.Initailze<TitleScene>(null);
+        SceneManager.Inst.Initailze<TitleScene>(new TitleSceneInitData()
+        {
+            GameInstance = this
+        });
         yield break;
     }
 }

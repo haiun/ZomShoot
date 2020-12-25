@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TitleSceneInitData : ISceneInitData
 {
-    public int StageId = 0;
+    public GameInstance GameInstance = null;
 }
 
 [PrefabPath("UI/TitleScene")]
@@ -14,9 +14,11 @@ public class TitleScene : SceneBase
     [SerializeField]
     private TitleSceneView view = null;
 
+    private TitleSceneInitData initData = null;
+
     public override void OnInitializeScene(ISceneInitData initData)
     {
-
+        this.initData = initData as TitleSceneInitData;
     }
 
     public override void OnDestroyScene()
@@ -26,6 +28,9 @@ public class TitleScene : SceneBase
 
     public void OnClickGameStart()
     {
-        SceneManager.Inst.SwitchScene<GameScene>(null);
+        SceneManager.Inst.SwitchScene<GameScene>(new GameSceneInitData()
+        {
+            GameInstance = initData.GameInstance
+        });
     }
 }
