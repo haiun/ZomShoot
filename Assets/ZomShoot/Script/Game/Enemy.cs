@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Animator ani = null;
+    private Collider targetCollider = null;
+    private Rigidbody[] rigidbodyList = null;
+
+    public void Initialize()
     {
-        
+        ani = GetComponent<Animator>();
+        targetCollider = GetComponent<Collider>();
+        rigidbodyList = GetComponentsInChildren<Rigidbody>();
+        ToggleRagdoll(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ToggleRagdoll(bool isAnimating)
     {
-        
+        ani.enabled = isAnimating;
+
+        targetCollider.enabled = isAnimating;
+
+        foreach (var rigidbody in rigidbodyList)
+        {
+            rigidbody.isKinematic = isAnimating;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            ToggleRagdoll(false);
+        }
     }
 }

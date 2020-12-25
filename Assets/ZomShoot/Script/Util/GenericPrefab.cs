@@ -27,7 +27,7 @@ public class GenericPrefab
     {
         var prefabPathAttr = typeof(T).GetCustomAttribute<PrefabPath>();
         var prefab = Resources.Load(prefabPathAttr.Path) as GameObject;
-        var go = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity, parent);
+        var go = GameObject.Instantiate(prefab, parent.position, parent.rotation, parent);
         return go.GetComponent<T>();
     }
 }
