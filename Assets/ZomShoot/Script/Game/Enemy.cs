@@ -88,6 +88,8 @@ public class Enemy : MonoBehaviour
             ToggleRagdoll(false);
             StartCoroutine(RemoveDirection());
 
+            GameInstance.Inst?.PlaySfx(SfxEnum.Kill);
+
             initData.OnKillEnemy?.Invoke(this);
         }
     }

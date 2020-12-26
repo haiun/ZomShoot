@@ -40,7 +40,7 @@ public class HeliPlayer : MonoBehaviour
         zoomCamera.enabled = zoom;
 
         bool aim = data == null ? false : data.Target != null;
-        humanAni.SetFloat("WeaponType_int", aim ? 5 : 0);
+        humanAni.SetFloat("WeaponType_int", (zoom && aim) ? 5 : 0);
     }
 
     public void LateUpdate()
@@ -114,6 +114,7 @@ public class HeliPlayer : MonoBehaviour
         muzzleTracking = false;
 
         humanAni.SetBool("Shoot_b", true);
+        GameInstance.Inst?.PlaySfx(SfxEnum.Shoot);
 
         yield return new WaitForSeconds(0.16f);
 

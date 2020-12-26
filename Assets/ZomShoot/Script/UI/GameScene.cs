@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using System;
 
 [PrefabPath("UI/GameScene")]
 public class GameScene : SceneBase
@@ -24,6 +24,10 @@ public class GameScene : SceneBase
     public override void OnInitializeScene(ISceneInitData _initData)
     {
         initData = (GameSceneInitData)_initData;
+
+        GameInstance.Inst.PlayBGM(BgmEnum.Title, false);
+        GameInstance.Inst.PlayBGM(BgmEnum.Game, true);
+        GameInstance.Inst.PlayBGM(BgmEnum.GameAmbient, true);
 
         field = GenericPrefab.InstantiatePathFormat<Field>(initData.FieldId.ToString());
         cameraTrack = field.GetCameraTrack();
@@ -60,6 +64,7 @@ public class GameScene : SceneBase
                 CurrentEnemyIndex = 0
             };
             sameSceneState.InvalidTarget();
+            heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
         }
 
         //init enemy
@@ -95,6 +100,15 @@ public class GameScene : SceneBase
     }
     #endregion
 
+    private IEnumerator ZoomProcess(Action onFinish)
+    {
+        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(sameSceneState);
+
+        onFinish();
+        yield break;
+    }
+
     public void OnClickSelectEnemy()
     {
         sameSceneState.SetNextEnemy();
@@ -105,17 +119,17 @@ public class GameScene : SceneBase
     public void OnClickZoomIn()
     {
         sameSceneState.SetZoom(true);
-
-        view.ApplyGameSceneState(sameSceneState);
-        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+        SceneTransition.StartTransition(ZoomProcess, () => { });
     }
 
     public void OnClickZoomOut()
     {
         sameSceneState.SetZoom(false);
-
-        view.ApplyGameSceneState(sameSceneState);
+        sameSceneState.InvalidTarget();
         heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(sameSceneState);
+
+        //SceneTransition.StartTransition(ZoomProcess, () => { });
     }
 
     public void OnClickShoot()
@@ -125,12 +139,14 @@ public class GameScene : SceneBase
 
     public void OnKillEnemy(Enemy enemy)
     {
-        var enemyList = sameSceneState.CurrentSubStage.EnemyList;
-        enemyList.Remove(enemy);
+        sameSceneState.OnRemoveEnemy(enemy);
+        sameSceneState.SetZoom(false);
+        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(sameSceneState);
     }
 
     public void OnRemoveEnemy(Enemy enemy)
     {
-        sameSceneState.OnRemoveEnemy(enemy);
+
     }
 }

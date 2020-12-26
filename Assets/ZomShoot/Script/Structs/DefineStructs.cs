@@ -1,13 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEngine;
 
-
-public enum BGMEnum
+public enum BgmEnum
 {
-    Title, Game, GameAmbient
+    Title, Game, GameAmbient, Max
+}
+
+[Serializable]
+public class BgmSource
+{
+    public BgmEnum BgmEnum = BgmEnum.Title;
+    public AudioSource AudioSource = null;
 }
 
 public enum SfxEnum
 {
-    Shoot, Reload, Mag, Kill, HitGround
+    None, Shoot, Reload, Mag, Kill, HitGround, Max
+}
+
+[Serializable]
+public class SfxClip
+{
+    public SfxEnum SfxEnum = SfxEnum.None;
+    public AudioClip Clip = null;
 }

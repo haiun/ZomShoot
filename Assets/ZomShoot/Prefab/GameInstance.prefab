@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1015996730
 Transform:
   m_ObjectHideFlags: 0
@@ -42,8 +42,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 38ae2cb05d451ab4bbcc170088a06303, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -169,7 +169,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -270,7 +270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2071672954
 Transform:
   m_ObjectHideFlags: 0
@@ -296,8 +296,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7ce091c147840ee458e6aa7c277cabfa, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &632316126779702193
 Transform:
   m_ObjectHideFlags: 0
@@ -423,8 +423,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7e206ec984d957040aa7354098a7c1e6, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -556,8 +556,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9f7e3cebcdb5f4d82ea9d35bcf92ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleBGM: {fileID: 1015996731}
-  gameBGM: {fileID: 2071672955}
+  bgmSourceList:
+  - BgmEnum: 0
+    AudioSource: {fileID: 1015996731}
+  - BgmEnum: 1
+    AudioSource: {fileID: 2071672955}
+  - BgmEnum: 2
+    AudioSource: {fileID: 5938691818996018976}
+  sfxClipList:
+  - SfxEnum: 1
+    Clip: {fileID: 8300000, guid: 6108e5fa7abf58a4ead029ec7e85367d, type: 3}
+  - SfxEnum: 2
+    Clip: {fileID: 8300000, guid: 1cf16dce6a80d5d4e81e06529f6eb4e9, type: 3}
+  - SfxEnum: 3
+    Clip: {fileID: 8300000, guid: 70adb1cb1b9277f48816a83a6d79100b, type: 3}
+  - SfxEnum: 4
+    Clip: {fileID: 8300000, guid: a167bc9e5f86e874aa42692b3d2579d1, type: 3}
   sfxSource: {fileID: 1723523618}
 --- !u!81 &7797842139480234158
 AudioListener:

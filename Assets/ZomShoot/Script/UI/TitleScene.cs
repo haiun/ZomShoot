@@ -19,6 +19,10 @@ public class TitleScene : SceneBase
     public override void OnInitializeScene(ISceneInitData initData)
     {
         this.initData = initData as TitleSceneInitData;
+
+        GameInstance.Inst.PlayBGM(BgmEnum.Title, true);
+        GameInstance.Inst.PlayBGM(BgmEnum.Game, false);
+        GameInstance.Inst.PlayBGM(BgmEnum.GameAmbient, false);
     }
 
     public override void OnDestroyScene()

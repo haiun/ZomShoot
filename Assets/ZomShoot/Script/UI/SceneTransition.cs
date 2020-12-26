@@ -35,6 +35,7 @@ public class SceneTransition : MonoBehaviour
 
     public void FadeInFinish()
     {
+        onFadeInFinish?.Invoke();
         Destroy(gameObject);
     }
 }
