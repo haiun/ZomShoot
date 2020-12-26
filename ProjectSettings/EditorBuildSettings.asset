@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ZomShoot/Scene/HeliTest.unity
-    guid: d0966a073c8507f4fae10b25e95e3fdb
+    path: Assets/ZomShoot/Scene/Applicaiton.unity
+    guid: f8fd33947244cbf4c80bec30b809ba81
   m_configObjects: {}
