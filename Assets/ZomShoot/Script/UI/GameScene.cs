@@ -59,11 +59,16 @@ public class GameScene : SceneBase
                 LeftEnemyCount = enemyCount,
                 CurrentEnemyIndex = 0
             };
+            sameSceneState.InvalidTarget();
         }
 
         //init enemy
         {
-            var enemyInitData = new EnemyInitData() { OnKillEnemy = OnKillEnemy };
+            var enemyInitData = new EnemyInitData()
+            {
+                OnKillEnemy = OnKillEnemy,
+                OnRemoveEnemy = OnRemoveEnemy
+            };
 
             foreach (var subStage in subStageList)
             {
@@ -122,7 +127,10 @@ public class GameScene : SceneBase
     {
         var enemyList = sameSceneState.CurrentSubStage.EnemyList;
         enemyList.Remove(enemy);
+    }
 
+    public void OnRemoveEnemy(Enemy enemy)
+    {
         sameSceneState.OnRemoveEnemy(enemy);
     }
 }

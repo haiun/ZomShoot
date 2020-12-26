@@ -6,15 +6,23 @@ using UnityEngine;
 public class EnemyInitData
 {
     public Action<Enemy> OnKillEnemy = null;
+    public Action<Enemy> OnRemoveEnemy = null;
 }
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private Transform targetJoint = null;
+
     private Animator ani = null;
     private Collider targetCollider = null;
     private Rigidbody[] rigidbodyList = null;
 
     private EnemyInitData initData = null;
+
+    public Transform TargetJoint { get { return targetJoint; } }
+
+    public List<Material> materialList = null;
 
     public void Initialize(EnemyInitData initData)
     {
@@ -23,6 +31,40 @@ public class Enemy : MonoBehaviour
         ani = GetComponent<Animator>();
         targetCollider = GetComponent<Collider>();
         rigidbodyList = GetComponentsInChildren<Rigidbody>();
+
+        {
+            var meshRendererList = GetComponentsInChildren<MeshRenderer>();
+            foreach (var renderer in meshRendererList)
+            {
+                foreach (var mat in renderer.materials)
+                {
+                    if (mat != null)
+                    {
+                        materialList.Add(mat);
+                    }
+                }
+            }
+        }
+        {
+            var meshRendererList = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var renderer in meshRendererList)
+            {
+                foreach (var mat in renderer.materials)
+                {
+                    if (mat != null)
+                    {
+                        materialList.Add(mat);
+                    }
+                }
+            }
+        }
+
+        var color = new Color(1f, 0.5f, 0, 0);
+        foreach (var mat in materialList)
+        {
+            mat.SetColor("_BurnningColor", color);
+        }
+
         ToggleRagdoll(true);
     }
 
@@ -44,8 +86,58 @@ public class Enemy : MonoBehaviour
         {
             //kill precess
             ToggleRagdoll(false);
+            StartCoroutine(RemoveDirection());
 
             initData.OnKillEnemy?.Invoke(this);
         }
+    }
+
+    IEnumerator RemoveDirection()
+    {
+        yield return new WaitForSeconds(2f);
+
+        {
+            Color color = new Color(1f, 0.5f, 0, 0);
+
+            float startTime = Time.time;
+            var deltaSec = Time.time - startTime;
+            while (deltaSec < 0.5f)
+            {
+                deltaSec = Time.time - startTime;
+                var alpha = deltaSec / 0.5f;
+                color.a = alpha;
+                foreach (var mat in materialList)
+                {
+                    mat.SetColor("_BurnningColor", color);
+                }
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            color.a = 1f;
+            foreach (var mat in materialList)
+            {
+                mat.SetColor("_BurnningColor", color);
+            }
+        }
+
+        {
+            float startTime = Time.time;
+            var deltaSec = Time.time - startTime;
+            while (deltaSec < 3.1f)
+            {
+                deltaSec = Time.time - startTime;
+
+                var alpha = (3f - deltaSec) / 3f;
+                foreach (var mat in materialList)
+                {
+                    mat.SetFloat("_BurnningAlpha", alpha);
+                }
+
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        initData.OnRemoveEnemy?.Invoke(this);
     }
 }

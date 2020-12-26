@@ -20,14 +20,14 @@ public class GameSceneState
     public int LeftEnemyCount = 0;
     public int CurrentEnemyIndex = 0;
 
-    private void InvalidTarget()
+    public void InvalidTarget()
     {
         if (LeftEnemyCount <= CurrentEnemyIndex)
             CurrentEnemyIndex = 0;
 
         if (CurrentEnemyIndex < CurrentSubStage.EnemyList.Count)
         {
-            HeliPlayerData.Target = CurrentSubStage.EnemyList[CurrentEnemyIndex].transform;
+            HeliPlayerData.Target = CurrentSubStage.EnemyList[CurrentEnemyIndex].TargetJoint;
         }
         else
         {

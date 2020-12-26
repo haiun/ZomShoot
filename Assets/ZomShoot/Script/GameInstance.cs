@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
+    [SerializeField]
+    private AudioSource titleBGM = null;
+    [SerializeField]
+    private AudioSource gameBGM = null;
+    [SerializeField]
+    private AudioSource sfxSource = null;
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
