@@ -741,7 +741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8392083350086019873
 Transform:
   m_ObjectHideFlags: 0
@@ -763,7 +763,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642499577997854432}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 3
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1655,6 +1655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55389620390637767}
+  - component: {fileID: 8575702465104457623}
   m_Layer: 0
   m_Name: HeliPlayer
   m_TagString: Untagged
@@ -1677,6 +1678,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 113.490005, z: 0}
+--- !u!114 &8575702465104457623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787454113977279831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb656dce39eef6b4b9f158b8fd9ce4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalCamera: {fileID: 2109679523566260982}
+  zoomCamera: {fileID: 3745453922632956774}
+  humanAni: {fileID: 8872501342911205402}
+  muzzle: {fileID: 8392083350086019873}
+  BulletPrefab: {fileID: 4286462772212368787, guid: 3d39166a2ac900b47801777a3052ce34,
+    type: 3}
 --- !u!1 &6928290794300326271
 GameObject:
   m_ObjectHideFlags: 0

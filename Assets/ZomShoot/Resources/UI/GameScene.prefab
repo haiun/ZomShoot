@@ -1109,7 +1109,11 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
+  onClick:
+  - mTarget: {fileID: 6425185554311476317}
+    mMethodName: OnClickZoomIn
+    mParameters: []
+    oneShot: 0
 --- !u!114 &9124939928543140404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,7 +1694,11 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
+  onClick:
+  - mTarget: {fileID: 6425185554311476317}
+    mMethodName: OnClickZoomOut
+    mParameters: []
+    oneShot: 0
 --- !u!114 &9124939928742638706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1819,7 +1827,11 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
+  onClick:
+  - mTarget: {fileID: 6425185554311476317}
+    mMethodName: OnClickShoot
+    mParameters: []
+    oneShot: 0
 --- !u!114 &9124939928794285569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,7 +1912,7 @@ GameObject:
   - component: {fileID: 9124939928832976275}
   - component: {fileID: 9124939928832976274}
   m_Layer: 5
-  m_Name: ChangeAim
+  m_Name: ChangeTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1964,7 +1976,7 @@ MonoBehaviour:
   mFont: {fileID: 0}
   mText: 'CHANGE
 
-    AIM'
+    TARGET'
   mFontSize: 40
   mFontStyle: 0
   mAlignment: 0
@@ -2255,7 +2267,11 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
+  onClick:
+  - mTarget: {fileID: 6425185554311476317}
+    mMethodName: OnClickSelectEnemy
+    mParameters: []
+    oneShot: 0
 --- !u!114 &9124939929054288369
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,7 +21,15 @@ public class HeliPlayer : MonoBehaviour
     [SerializeField]
     private Animator humanAni = null;
 
+    [SerializeField]
+    private Transform muzzle = null;
+
+    [SerializeField]
+    private GameObject BulletPrefab = null;
+
     private HeliPlayerData heliPlayerData = null;
+
+    private bool muzzleTracking = true;
 
     public void ApplyHeliPlayerData(HeliPlayerData data)
     {
@@ -80,5 +88,47 @@ public class HeliPlayer : MonoBehaviour
 
             humanAni.SetFloat("Body_Vertical_f", degree);
         }
+
+        if (muzzleTracking)
+            muzzle.LookAt(target);
+    }
+
+    public void Shoot()
+    {
+        StartCoroutine(Fire());
+    }
+
+    IEnumerator Fire()
+    {
+        if (humanAni == null)
+        {
+            var go = GameObject.Instantiate(BulletPrefab) as GameObject;
+            go.transform.position = muzzle.position;
+            go.transform.LookAt(heliPlayerData.Target);
+            yield break;
+        }
+
+        if (!muzzleTracking)
+            yield break;
+
+        muzzleTracking = false;
+
+        humanAni.SetBool("Shoot_b", true);
+
+        yield return new WaitForSeconds(0.16f);
+
+        {
+            var go = GameObject.Instantiate(BulletPrefab) as GameObject;
+            go.transform.position = muzzle.position;
+            go.transform.LookAt(heliPlayerData.Target);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        humanAni.SetBool("Shoot_b", false);
+
+        yield return new WaitForSeconds(1f);
+
+        muzzleTracking = true;
     }
 }

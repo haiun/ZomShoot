@@ -1,6 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public class EnemyInitData
+{
+    public Action<Enemy> OnKillEnemy = null;
+}
 
 public class Enemy : MonoBehaviour
 {
@@ -8,8 +14,12 @@ public class Enemy : MonoBehaviour
     private Collider targetCollider = null;
     private Rigidbody[] rigidbodyList = null;
 
-    public void Initialize()
+    private EnemyInitData initData = null;
+
+    public void Initialize(EnemyInitData initData)
     {
+        this.initData = initData;
+
         ani = GetComponent<Animator>();
         targetCollider = GetComponent<Collider>();
         rigidbodyList = GetComponentsInChildren<Rigidbody>();
@@ -32,7 +42,10 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile")
         {
+            //kill precess
             ToggleRagdoll(false);
+
+            initData.OnKillEnemy?.Invoke(this);
         }
     }
 }

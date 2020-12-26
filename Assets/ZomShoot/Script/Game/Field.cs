@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class SubStage
@@ -18,6 +19,7 @@ public class FieldStateData
     public List<SubStage> SubStageList = null;
 }
 
+[PrefabPath("Field/{0}")]
 public class Field : MonoBehaviour
 {
     [SerializeField]
@@ -39,5 +41,10 @@ public class Field : MonoBehaviour
     public CameraTrack GetCameraTrack()
     {
         return cameraTrack;
+    }
+
+    public List<SubStage> GetSubStageList()
+    {
+        return subStageList.ToList();
     }
 }
