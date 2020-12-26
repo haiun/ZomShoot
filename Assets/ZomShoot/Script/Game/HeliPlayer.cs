@@ -124,11 +124,17 @@ public class HeliPlayer : MonoBehaviour
             go.transform.LookAt(heliPlayerData.Target);
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        GameInstance.Inst?.PlaySfx(SfxEnum.Reload);
+        yield return new WaitForSeconds(0.5f);
 
         humanAni.SetBool("Shoot_b", false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        GameInstance.Inst?.PlaySfx(SfxEnum.Mag);
+
+        yield return new WaitForSeconds(0.5f);
 
         muzzleTracking = true;
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameSceneInitData : ISceneInitData
 {
@@ -11,8 +12,12 @@ public class GameSceneInitData : ISceneInitData
 
 public class GameSceneState
 {
-    public SubStage CurrentSubStage = null;
+    public List<Enemy> TargetEnemyList = null;
+
     public HeliPlayerData HeliPlayerData = null;
+
+    public int SubStageId = 0;
+    public int NextSubStageId = 0;
 
     public int MaxBullet = 5;
     public int CurrentBullet = 5;
@@ -25,9 +30,9 @@ public class GameSceneState
         if (LeftEnemyCount <= CurrentEnemyIndex)
             CurrentEnemyIndex = 0;
 
-        if (CurrentEnemyIndex < CurrentSubStage.EnemyList.Count)
+        if (CurrentEnemyIndex < TargetEnemyList.Count)
         {
-            HeliPlayerData.Target = CurrentSubStage.EnemyList[CurrentEnemyIndex].TargetJoint;
+            HeliPlayerData.Target = TargetEnemyList[CurrentEnemyIndex].TargetJoint;
         }
         else
         {
@@ -37,7 +42,7 @@ public class GameSceneState
 
     public void OnRemoveEnemy(Enemy enemy)
     {
-        var enemyList = CurrentSubStage.EnemyList;
+        var enemyList = TargetEnemyList;
         enemyList.Remove(enemy);
 
         LeftEnemyCount = enemyList.Count;

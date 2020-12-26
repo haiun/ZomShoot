@@ -15,7 +15,7 @@ public class CameraTrack : MonoBehaviour
         return cameraJnt;
     }
 
-    public void PlayNext(int subStageId)
+    public void SetSubStage(int subStageId)
     {
         ani.SetInteger("SubStageId", subStageId);
     }

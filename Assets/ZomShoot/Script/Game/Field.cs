@@ -11,6 +11,11 @@ public class SubStage
     public int NextSubStageId = 0;
     public List<GameObject> ColliderList = null;
     public List<Enemy> EnemyList = null;
+
+    public void SetColliderActive(bool active)
+    {
+        ColliderList.ForEach(o => o.SetActive(active));
+    }
 }
 
 public class FieldStateData

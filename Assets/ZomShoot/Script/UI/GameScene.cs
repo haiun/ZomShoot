@@ -18,7 +18,7 @@ public class GameScene : SceneBase
     private HeliPlayer heliPlayer = null;
     private List<SubStage> subStageList = null;
 
-    private GameSceneState sameSceneState = null;
+    private GameSceneState gameSceneState = null;
 
     #region SceneBase
     public override void OnInitializeScene(ISceneInitData _initData)
@@ -49,22 +49,26 @@ public class GameScene : SceneBase
                 }
             }
 
-            sameSceneState = new GameSceneState()
+            gameSceneState = new GameSceneState()
             {
-                CurrentSubStage = fistStage,
+                TargetEnemyList = fistStage.EnemyList.ToList(),
                 HeliPlayerData = new HeliPlayerData()
                 {
                     Zoom = false,
                     ZoomStartTime = Time.time,
                     Target = firstTarget
                 },
+                SubStageId = fistStage.SubStageId,
+                NextSubStageId = fistStage.NextSubStageId,
                 MaxBullet = initData.MaxBullet,
                 CurrentBullet = initData.MaxBullet,
                 LeftEnemyCount = enemyCount,
                 CurrentEnemyIndex = 0
             };
-            sameSceneState.InvalidTarget();
-            heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+            fistStage.SetColliderActive(true);
+
+            gameSceneState.InvalidTarget();
+            heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
         }
 
         //init enemy
@@ -85,12 +89,12 @@ public class GameScene : SceneBase
         }
 
         //Init CameraTrack
-        cameraTrack.PlayNext(1);
+        cameraTrack.SetSubStage(1);
     }
 
     public override void OnDestroyScene()
     {
-        sameSceneState = null;
+        gameSceneState = null;
 
         subStageList = null;
         heliPlayer = null;
@@ -102,8 +106,8 @@ public class GameScene : SceneBase
 
     private IEnumerator ZoomProcess(Action onFinish)
     {
-        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
-        view.ApplyGameSceneState(sameSceneState);
+        heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(gameSceneState);
 
         onFinish();
         yield break;
@@ -111,23 +115,24 @@ public class GameScene : SceneBase
 
     public void OnClickSelectEnemy()
     {
-        sameSceneState.SetNextEnemy();
+        gameSceneState.SetNextEnemy();
 
-        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
+        heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
     }
 
     public void OnClickZoomIn()
     {
-        sameSceneState.SetZoom(true);
+        gameSceneState.SetZoom(true);
+
         SceneTransition.StartTransition(ZoomProcess, () => { });
     }
 
     public void OnClickZoomOut()
     {
-        sameSceneState.SetZoom(false);
-        sameSceneState.InvalidTarget();
-        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
-        view.ApplyGameSceneState(sameSceneState);
+        gameSceneState.SetZoom(false);
+        gameSceneState.InvalidTarget();
+        heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(gameSceneState);
 
         //SceneTransition.StartTransition(ZoomProcess, () => { });
     }
@@ -139,10 +144,60 @@ public class GameScene : SceneBase
 
     public void OnKillEnemy(Enemy enemy)
     {
-        sameSceneState.OnRemoveEnemy(enemy);
-        sameSceneState.SetZoom(false);
-        heliPlayer.ApplyHeliPlayerData(sameSceneState.HeliPlayerData);
-        view.ApplyGameSceneState(sameSceneState);
+        gameSceneState.OnRemoveEnemy(enemy);
+        gameSceneState.SetZoom(false);
+        heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(gameSceneState);
+
+        if (gameSceneState.TargetEnemyList.Count == 0)
+        {
+            int nextSubStageId = gameSceneState.NextSubStageId;
+            cameraTrack.SetSubStage(nextSubStageId);
+
+            int enemyCount = 0;
+            var nextStage = subStageList.FirstOrDefault(s => s.SubStageId == nextSubStageId);
+            Transform firstTarget = null;
+            if (nextStage != null)
+            {
+                var firstEnemy = nextStage.EnemyList.FirstOrDefault();
+                enemyCount = nextStage.EnemyList.Count;
+                if (firstEnemy != null)
+                {
+                    firstTarget = firstEnemy.transform;
+                    //
+                }
+
+                if (gameSceneState.SubStageId == nextStage.NextSubStageId)
+                {
+                    SceneManager.Inst.SwitchScene<TitleScene>(new TitleSceneInitData()
+                    {
+                        GameInstance = initData.GameInstance
+                    });
+                    return;
+                }
+            }
+
+            gameSceneState = new GameSceneState()
+            {
+                TargetEnemyList = nextStage.EnemyList.ToList(),
+                HeliPlayerData = new HeliPlayerData()
+                {
+                    Zoom = false,
+                    ZoomStartTime = Time.time,
+                    Target = firstTarget
+                },
+                SubStageId = nextStage.SubStageId,
+                NextSubStageId = nextStage.NextSubStageId,
+                MaxBullet = initData.MaxBullet,
+                CurrentBullet = initData.MaxBullet,
+                LeftEnemyCount = enemyCount,
+                CurrentEnemyIndex = 0
+            };
+            nextStage.SetColliderActive(true);
+
+            gameSceneState.InvalidTarget();
+            heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+        }
     }
 
     public void OnRemoveEnemy(Enemy enemy)
