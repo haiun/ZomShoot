@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ToggleKinematicTest : MonoBehaviour
 {
-    public Rigidbody rigidbody = null;
+    public Rigidbody Rigidbody = null;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            rigidbody.isKinematic = false;
+            Rigidbody.isKinematic = false;
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            rigidbody.AddForce(transform.forward * 100f, ForceMode.Acceleration);
+            Rigidbody.AddForce(transform.forward * 100f, ForceMode.Acceleration);
         }
     }
 

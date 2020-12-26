@@ -11,8 +11,8 @@ public class TitleSceneInitData : ISceneInitData
 [PrefabPath("UI/TitleScene")]
 public class TitleScene : SceneBase
 {
-    [SerializeField]
-    private TitleSceneView view = null;
+    //[SerializeField]
+    //private TitleSceneView view = null;
 
     private TitleSceneInitData initData = null;
 

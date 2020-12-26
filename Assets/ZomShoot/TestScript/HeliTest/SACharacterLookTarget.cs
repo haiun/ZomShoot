@@ -7,8 +7,8 @@ public class SACharacterLookTarget : MonoBehaviour
     [SerializeField]
     private Transform target = null;
 
-    [SerializeField]
-    private Transform debugTarget = null;
+    //[SerializeField]
+    //private Transform debugTarget = null;
 
     [SerializeField]
     private Animator ani = null;
