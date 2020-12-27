@@ -130,11 +130,22 @@ public class HeliPlayer : MonoBehaviour
 
         humanAni.SetBool("Shoot_b", false);
 
-        yield return new WaitForSeconds(0.5f);
+        float fixAimFinish = Time.time + 1f;
+        float leftFixAimTime = fixAimFinish - Time.time;
+        while (leftFixAimTime >= 0)
+        {
+            var ratio = Mathf.Clamp01(leftFixAimTime);
+            var currentRot = muzzle.rotation;
+            muzzle.LookAt(heliPlayerData.Target);
+            var targetRot = muzzle.rotation;
+
+            muzzle.rotation = Quaternion.Lerp(targetRot, currentRot, ratio);
+            yield return new WaitForEndOfFrame();
+            leftFixAimTime = fixAimFinish - Time.time;
+        }
+        muzzle.LookAt(heliPlayerData.Target);
 
         GameInstance.Inst?.PlaySfx(SfxEnum.Mag);
-
-        yield return new WaitForSeconds(0.5f);
 
         muzzleTracking = true;
     }

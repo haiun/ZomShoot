@@ -20,9 +20,7 @@ public class TitleScene : SceneBase
     {
         this.initData = initData as TitleSceneInitData;
 
-        GameInstance.Inst.PlayBGM(BgmEnum.Title, true);
-        GameInstance.Inst.PlayBGM(BgmEnum.Game, false);
-        GameInstance.Inst.PlayBGM(BgmEnum.GameAmbient, false);
+        GameInstance.Inst.PlayBGM(new BgmEnum[] { BgmEnum.Title });
     }
 
     public override void OnDestroyScene()

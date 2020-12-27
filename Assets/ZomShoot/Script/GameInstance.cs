@@ -56,9 +56,13 @@ public class GameInstance : MonoBehaviour
         }
     }
 
-    public void PlayBGM(BgmEnum bgmEnum, bool play)
+    public void PlayBGM(BgmEnum[] bgmList)
     {
-        bgmSourceInstanceArr[(int)bgmEnum]?.AudioSource.gameObject.SetActive(play);
+        for (int i = 0; i < (int)BgmEnum.Max; ++i)
+        {
+            bool active = bgmList.Contains((BgmEnum)i);
+            bgmSourceInstanceArr[i]?.AudioSource.gameObject.SetActive(active);
+        }
     }
 
     public void PlaySfx(SfxEnum sfxEnum)

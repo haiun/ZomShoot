@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum BgmEnum
 {
-    Title, Game, GameAmbient, Max
+    Title, Game, GameAmbient, Result, Max
 }
 
 [Serializable]

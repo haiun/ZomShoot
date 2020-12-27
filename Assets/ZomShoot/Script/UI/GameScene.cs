@@ -18,6 +18,7 @@ public class GameScene : SceneBase
     private HeliPlayer heliPlayer = null;
     private List<SubStage> subStageList = null;
 
+    private float startTime = 0f;
     private GameSceneState gameSceneState = null;
 
     #region SceneBase
@@ -25,9 +26,7 @@ public class GameScene : SceneBase
     {
         initData = (GameSceneInitData)_initData;
 
-        GameInstance.Inst.PlayBGM(BgmEnum.Title, false);
-        GameInstance.Inst.PlayBGM(BgmEnum.Game, true);
-        GameInstance.Inst.PlayBGM(BgmEnum.GameAmbient, true);
+        GameInstance.Inst.PlayBGM(new BgmEnum[] { BgmEnum.Game, BgmEnum.GameAmbient });
 
         field = GenericPrefab.InstantiatePathFormat<Field>(initData.FieldId.ToString());
         cameraTrack = field.GetCameraTrack();
@@ -69,6 +68,7 @@ public class GameScene : SceneBase
 
             gameSceneState.InvalidTarget();
             heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+            view.ApplyGameSceneState(gameSceneState);
         }
 
         //init enemy
@@ -90,6 +90,9 @@ public class GameScene : SceneBase
 
         //Init CameraTrack
         cameraTrack.SetSubStage(1);
+
+        startTime = Time.time;
+        view.ApplyTime(Time.time - startTime);
     }
 
     public override void OnDestroyScene()
@@ -103,6 +106,11 @@ public class GameScene : SceneBase
         Destroy(field.gameObject);
     }
     #endregion
+
+    public void Update()
+    {
+        view.ApplyTime(Time.time - startTime);
+    }
 
     private IEnumerator ZoomProcess(Action onFinish)
     {
@@ -169,9 +177,10 @@ public class GameScene : SceneBase
 
                 if (gameSceneState.SubStageId == nextStage.NextSubStageId)
                 {
-                    SceneManager.Inst.SwitchScene<TitleScene>(new TitleSceneInitData()
+                    SceneManager.Inst.SwitchScene<GameResultScene>(new GameResultSceneInitData()
                     {
-                        GameInstance = initData.GameInstance
+                        GameInstance = initData.GameInstance,
+                        ClearTime = Time.time - startTime
                     });
                     return;
                 }
@@ -197,6 +206,7 @@ public class GameScene : SceneBase
 
             gameSceneState.InvalidTarget();
             heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+            view.ApplyGameSceneState(gameSceneState);
         }
     }
 

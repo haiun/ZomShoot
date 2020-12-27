@@ -5,23 +5,11 @@ using System;
 using System.Text;
 
 [Serializable]
-public class GameSceneView
+public class GameResultSceneView
 {
-    public List<GameObject> NormalViewObject = null;
-    public List<GameObject> ZoomViewObject = null;
-
     public UILabel Time = null;
-    public UILabel LeftTargetCount = null;
 
     private StringBuilder timeStringBuilder = new StringBuilder();
-
-    public void ApplyGameSceneState(GameSceneState state)
-    {
-        NormalViewObject.ForEach(o => o.SetActive(!state.HeliPlayerData.Zoom));
-        ZoomViewObject.ForEach(o => o.SetActive(state.HeliPlayerData.Zoom));
-
-        LeftTargetCount.text = state.LeftEnemyCount.ToString();
-    }
 
     public void ApplyTime(float seconds)
     {
@@ -36,4 +24,3 @@ public class GameSceneView
         Time.text = timeStringBuilder.ToString();
     }
 }
-
