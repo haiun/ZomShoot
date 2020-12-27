@@ -6,11 +6,11 @@ using System.Linq;
 public class GameInstance : MonoBehaviour
 {
     [SerializeField]
+    private AudioSource sfxSource = null;
+    [SerializeField]
     private List<BgmSource> bgmSourceList = null;
     [SerializeField]
     private List<SfxClip> sfxClipList = null;
-    [SerializeField]
-    private AudioSource sfxSource = null;
 
     private BgmSource[] bgmSourceInstanceArr = null;
     private SfxClip[] sfxClipInstanceArr = null;

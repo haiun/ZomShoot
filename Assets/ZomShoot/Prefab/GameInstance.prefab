@@ -556,6 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9f7e3cebcdb5f4d82ea9d35bcf92ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxSource: {fileID: 1723523618}
   bgmSourceList:
   - BgmEnum: 0
     AudioSource: {fileID: 1015996731}
@@ -574,7 +575,12 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: a167bc9e5f86e874aa42692b3d2579d1, type: 3}
   - SfxEnum: 5
     Clip: {fileID: 8300000, guid: e54d89cd681f9984e87c749211dc4ab5, type: 3}
-  sfxSource: {fileID: 1723523618}
+  - SfxEnum: 6
+    Clip: {fileID: 8300000, guid: a1d9cc9f7d95a334f95dfd5db5af6580, type: 3}
+  - SfxEnum: 7
+    Clip: {fileID: 8300000, guid: 837160cb6d5453b4b8a7df2262c174fc, type: 3}
+  - SfxEnum: 8
+    Clip: {fileID: 8300000, guid: 38d047a54b5494f4b8fbc907df75d65d, type: 3}
 --- !u!81 &7797842139480234158
 AudioListener:
   m_ObjectHideFlags: 0
