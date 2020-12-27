@@ -708,7 +708,7 @@ MonoBehaviour:
   - SfxEnum: 6
     Clip: {fileID: 8300000, guid: a1d9cc9f7d95a334f95dfd5db5af6580, type: 3}
   - SfxEnum: 7
-    Clip: {fileID: 8300000, guid: 837160cb6d5453b4b8a7df2262c174fc, type: 3}
+    Clip: {fileID: 8300000, guid: adb3b0da69d08fc4a8a916c513daf550, type: 3}
   - SfxEnum: 8
     Clip: {fileID: 8300000, guid: 38d047a54b5494f4b8fbc907df75d65d, type: 3}
 --- !u!81 &7797842139480234158

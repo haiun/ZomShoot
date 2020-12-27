@@ -1694,7 +1694,7 @@ MonoBehaviour:
   zoomCamera: {fileID: 3745453922632956774}
   humanAni: {fileID: 8872501342911205402}
   muzzle: {fileID: 8392083350086019873}
-  BulletPrefab: {fileID: 4286462772212368787, guid: 3d39166a2ac900b47801777a3052ce34,
+  BulletPrefab: {fileID: 4286462772212368787, guid: 002dba468118b424f95e2cc35c39202e,
     type: 3}
 --- !u!1 &6928290794300326271
 GameObject:
