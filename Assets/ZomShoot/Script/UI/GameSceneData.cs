@@ -7,7 +7,6 @@ public class GameSceneInitData : ISceneInitData
 {
     public GameInstance GameInstance = null;
     public int FieldId = 1;
-    public int MaxBullet = 5;
 }
 
 public class GameSceneState
@@ -18,9 +17,6 @@ public class GameSceneState
 
     public int SubStageId = 0;
     public int NextSubStageId = 0;
-
-    public int MaxBullet = 5;
-    public int CurrentBullet = 5;
 
     public int LeftEnemyCount = 0;
     public int CurrentEnemyIndex = 0;
@@ -58,11 +54,5 @@ public class GameSceneState
     public void SetZoom(bool zoom)
     {
         HeliPlayerData.Zoom = zoom;
-        HeliPlayerData.ZoomStartTime = Time.time;
-    }
-
-    public void OnShoot()
-    {
-
     }
 }

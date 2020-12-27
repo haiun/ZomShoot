@@ -34,7 +34,8 @@ public class TitleScene : SceneBase
 
         SceneManager.Inst.SwitchScene<GameScene>(new GameSceneInitData()
         {
-            GameInstance = initData.GameInstance
+            GameInstance = initData.GameInstance,
+            FieldId = 1
         });
     }
 }

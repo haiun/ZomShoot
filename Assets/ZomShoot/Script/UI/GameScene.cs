@@ -44,7 +44,7 @@ public class GameScene : SceneBase
                 enemyCount = fistStage.EnemyList.Count;
                 if (firstEnemy != null)
                 {
-                    firstTarget = firstEnemy.transform;
+                    firstTarget = firstEnemy.TargetJoint;
                 }
             }
 
@@ -54,13 +54,10 @@ public class GameScene : SceneBase
                 HeliPlayerData = new HeliPlayerData()
                 {
                     Zoom = false,
-                    ZoomStartTime = Time.time,
                     Target = firstTarget
                 },
                 SubStageId = fistStage.SubStageId,
                 NextSubStageId = fistStage.NextSubStageId,
-                MaxBullet = initData.MaxBullet,
-                CurrentBullet = initData.MaxBullet,
                 LeftEnemyCount = enemyCount,
                 CurrentEnemyIndex = 0
             };
@@ -130,6 +127,12 @@ public class GameScene : SceneBase
 
     public void OnClickZoomIn()
     {
+        if (gameSceneState.HeliPlayerData.Target == null)
+            return;
+
+        if (heliPlayer.Reloading)
+            return;
+
         gameSceneState.SetZoom(true);
 
         SceneTransition.StartTransition(ZoomProcess, () => { });
@@ -147,7 +150,14 @@ public class GameScene : SceneBase
 
     public void OnClickShoot()
     {
-        heliPlayer.Shoot();
+        if (heliPlayer.Reloading)
+            return;
+
+        view.ApplyShootingDelayButton(false);
+        heliPlayer.Shoot(() =>
+        {
+            view.ApplyShootingDelayButton(true);
+        });
     }
 
     public void OnKillEnemy(Enemy enemy)
@@ -159,55 +169,57 @@ public class GameScene : SceneBase
 
         if (gameSceneState.TargetEnemyList.Count == 0)
         {
-            int nextSubStageId = gameSceneState.NextSubStageId;
-            cameraTrack.SetSubStage(nextSubStageId);
-
-            int enemyCount = 0;
-            var nextStage = subStageList.FirstOrDefault(s => s.SubStageId == nextSubStageId);
-            Transform firstTarget = null;
-            if (nextStage != null)
+            var currentSubStage = subStageList.FirstOrDefault(s => s.SubStageId == gameSceneState.SubStageId);
+            var nextSubStage = subStageList.FirstOrDefault(s => s.SubStageId == gameSceneState.NextSubStageId);
+            if (gameSceneState.SubStageId == nextSubStage.NextSubStageId)
             {
-                var firstEnemy = nextStage.EnemyList.FirstOrDefault();
-                enemyCount = nextStage.EnemyList.Count;
-                if (firstEnemy != null)
+                SceneManager.Inst.SwitchScene<GameResultScene>(new GameResultSceneInitData()
                 {
-                    firstTarget = firstEnemy.transform;
-                    //
-                }
-
-                if (gameSceneState.SubStageId == nextStage.NextSubStageId)
-                {
-                    SceneManager.Inst.SwitchScene<GameResultScene>(new GameResultSceneInitData()
-                    {
-                        GameInstance = initData.GameInstance,
-                        ClearTime = Time.time - startTime
-                    });
-                    return;
-                }
+                    GameInstance = initData.GameInstance,
+                    ClearTime = Time.time - startTime
+                });
+                return;
             }
 
-            gameSceneState = new GameSceneState()
-            {
-                TargetEnemyList = nextStage.EnemyList.ToList(),
-                HeliPlayerData = new HeliPlayerData()
-                {
-                    Zoom = false,
-                    ZoomStartTime = Time.time,
-                    Target = firstTarget
-                },
-                SubStageId = nextStage.SubStageId,
-                NextSubStageId = nextStage.NextSubStageId,
-                MaxBullet = initData.MaxBullet,
-                CurrentBullet = initData.MaxBullet,
-                LeftEnemyCount = enemyCount,
-                CurrentEnemyIndex = 0
-            };
-            nextStage.SetColliderActive(true);
-
-            gameSceneState.InvalidTarget();
-            heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
-            view.ApplyGameSceneState(gameSceneState);
+            currentSubStage.SetColliderActive(false);
+            cameraTrack.SetSubStage(gameSceneState.NextSubStageId, OnChangeStage);
         }
+    }
+
+    public void OnChangeStage(int subStageId)
+    {
+        var subStage = subStageList.FirstOrDefault(s => s.SubStageId == subStageId);
+
+        int enemyCount = 0;
+        Transform firstTarget = null;
+        if (subStage != null)
+        {
+            var firstEnemy = subStage.EnemyList.FirstOrDefault();
+            enemyCount = subStage.EnemyList.Count;
+            if (firstEnemy != null)
+            {
+                firstTarget = firstEnemy.TargetJoint;
+            }
+        }
+
+        gameSceneState = new GameSceneState()
+        {
+            TargetEnemyList = subStage.EnemyList.ToList(),
+            HeliPlayerData = new HeliPlayerData()
+            {
+                Zoom = false,
+                Target = firstTarget
+            },
+            SubStageId = subStage.SubStageId,
+            NextSubStageId = subStage.NextSubStageId,
+            LeftEnemyCount = enemyCount,
+            CurrentEnemyIndex = 0
+        };
+        subStage.SetColliderActive(true);
+
+        gameSceneState.InvalidTarget();
+        heliPlayer.ApplyHeliPlayerData(gameSceneState.HeliPlayerData);
+        view.ApplyGameSceneState(gameSceneState);
     }
 
     public void OnRemoveEnemy(Enemy enemy)

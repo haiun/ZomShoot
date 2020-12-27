@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HeliPlayerData
 {
     public bool Zoom = false;
-    public float ZoomStartTime = 0f;
     public Transform Target = null;
 }
 
@@ -30,6 +30,7 @@ public class HeliPlayer : MonoBehaviour
     private HeliPlayerData heliPlayerData = null;
 
     private bool muzzleTracking = true;
+    public bool Reloading { get { return !muzzleTracking; } }
 
     public void ApplyHeliPlayerData(HeliPlayerData data)
     {
@@ -41,6 +42,11 @@ public class HeliPlayer : MonoBehaviour
 
         bool aim = data == null ? false : data.Target != null;
         humanAni.SetFloat("WeaponType_int", (zoom && aim) ? 5 : 0);
+        if (!aim)
+        {
+            humanAni.SetFloat("Body_Horizontal_f", 0);
+            humanAni.SetFloat("Body_Vertical_f", 0);
+        }
     }
 
     public void LateUpdate()
@@ -93,12 +99,12 @@ public class HeliPlayer : MonoBehaviour
             muzzle.LookAt(target);
     }
 
-    public void Shoot()
+    public void Shoot(Action onComplete)
     {
-        StartCoroutine(Fire());
+        StartCoroutine(Fire(onComplete));
     }
 
-    IEnumerator Fire()
+    IEnumerator Fire(Action onComplete)
     {
         if (humanAni == null)
         {
@@ -148,5 +154,6 @@ public class HeliPlayer : MonoBehaviour
         GameInstance.Inst?.PlaySfx(SfxEnum.Mag);
 
         muzzleTracking = true;
+        onComplete();
     }
 }
