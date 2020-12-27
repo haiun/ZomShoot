@@ -397,6 +397,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1725620502}
     m_Modifications:
+    - target: {fileID: 702322561, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 513
+      objectReference: {fileID: 0}
     - target: {fileID: 702322562, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
       propertyPath: leftAnchor.target
       value: 
@@ -409,6 +413,10 @@ PrefabInstance:
       propertyPath: bottomAnchor.target
       value: 
       objectReference: {fileID: 160334872}
+    - target: {fileID: 784098259, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -513
+      objectReference: {fileID: 0}
     - target: {fileID: 784098260, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
       propertyPath: topAnchor.target
       value: 
@@ -421,6 +429,10 @@ PrefabInstance:
       propertyPath: rightAnchor.target
       value: 
       objectReference: {fileID: 160334872}
+    - target: {fileID: 785168532, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -666
+      objectReference: {fileID: 0}
     - target: {fileID: 785168533, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
       propertyPath: topAnchor.target
       value: 
@@ -433,6 +445,10 @@ PrefabInstance:
       propertyPath: bottomAnchor.target
       value: 
       objectReference: {fileID: 160334872}
+    - target: {fileID: 1441228304, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 666
+      objectReference: {fileID: 0}
     - target: {fileID: 1441228305, guid: 96ca6071bbdd6f5418f69425d8650746, type: 3}
       propertyPath: topAnchor.target
       value: 
@@ -597,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124939927693979878, guid: 6a9ca448cb5dd8f45839ae5f306e2279,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9124939927693979881, guid: 6a9ca448cb5dd8f45839ae5f306e2279,
         type: 3}

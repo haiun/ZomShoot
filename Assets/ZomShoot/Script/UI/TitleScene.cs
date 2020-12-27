@@ -32,6 +32,8 @@ public class TitleScene : SceneBase
 
     public void OnClickGameStart()
     {
+        GameInstance.Inst?.PlaySfx(SfxEnum.Impact);
+
         SceneManager.Inst.SwitchScene<GameScene>(new GameSceneInitData()
         {
             GameInstance = initData.GameInstance

@@ -572,6 +572,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 70adb1cb1b9277f48816a83a6d79100b, type: 3}
   - SfxEnum: 4
     Clip: {fileID: 8300000, guid: a167bc9e5f86e874aa42692b3d2579d1, type: 3}
+  - SfxEnum: 5
+    Clip: {fileID: 8300000, guid: e54d89cd681f9984e87c749211dc4ab5, type: 3}
   sfxSource: {fileID: 1723523618}
 --- !u!81 &7797842139480234158
 AudioListener:

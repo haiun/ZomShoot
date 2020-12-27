@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Transform targetJoint = null;
 
+    [SerializeField]
+    private Light burnningLight = null;
+
     private Animator ani = null;
     private Collider targetCollider = null;
     private Rigidbody[] rigidbodyList = null;
@@ -64,6 +67,7 @@ public class Enemy : MonoBehaviour
         {
             mat.SetColor("_BurnningColor", color);
         }
+        burnningLight.gameObject.SetActive(false);
 
         ToggleRagdoll(true);
     }
@@ -98,6 +102,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
+        burnningLight.gameObject.SetActive(true);
         {
             Color color = new Color(1f, 0.5f, 0, 0);
 
@@ -112,6 +117,7 @@ public class Enemy : MonoBehaviour
                 {
                     mat.SetColor("_BurnningColor", color);
                 }
+                burnningLight.intensity = alpha * 10f;
 
                 yield return new WaitForEndOfFrame();
             }
@@ -121,6 +127,7 @@ public class Enemy : MonoBehaviour
             {
                 mat.SetColor("_BurnningColor", color);
             }
+            burnningLight.intensity = 5f;
         }
 
         {
@@ -135,10 +142,12 @@ public class Enemy : MonoBehaviour
                 {
                     mat.SetFloat("_BurnningAlpha", alpha);
                 }
+                burnningLight.intensity = alpha * 10f;
 
                 yield return new WaitForEndOfFrame();
             }
         }
+        burnningLight.gameObject.SetActive(false);
 
         initData.OnRemoveEnemy?.Invoke(this);
     }

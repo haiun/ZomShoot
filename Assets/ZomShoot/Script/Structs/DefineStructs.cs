@@ -17,7 +17,7 @@ public class BgmSource
 
 public enum SfxEnum
 {
-    None, Shoot, Reload, Mag, Kill, HitGround, Max
+    None, Shoot, Reload, Mag, Kill, Impact, Max
 }
 
 [Serializable]
