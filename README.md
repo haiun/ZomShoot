@@ -15,5 +15,7 @@ https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059<br
 https://assetstore.unity.com/packages/tools/camera/free-fly-camera-140739<br>
 
 개발중영상<br>
-<iframe width="560" height="315" src="https://youtu.be/fLQjenWnk10" frameborder="0" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://youtu.be/muBYwZzvkeg" frameborder="0" allowfullscreen></iframe>
+[![Video Label](http://img.youtube.com/vi/fLQjenWnk10/0.jpg)](https://youtu.be/fLQjenWnk10?t=0s)
+<br>
+[![Video Label](http://img.youtube.com/vi/muBYwZzvkeg/0.jpg)](https://youtu.be/muBYwZzvkeg?t=0s)
+<br>
