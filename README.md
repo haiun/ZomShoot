@@ -14,7 +14,7 @@ https://assetstore.unity.com/packages/2d/gui/icons/simple-free-pixel-art-styled-
 https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059<br>
 https://assetstore.unity.com/packages/tools/camera/free-fly-camera-140739<br>
 
-개발중영상<br>
+개발 중 영상링크<br>
 [![Video Label](http://img.youtube.com/vi/fLQjenWnk10/0.jpg)](https://youtu.be/fLQjenWnk10?t=0s)
 <br>
 [![Video Label](http://img.youtube.com/vi/muBYwZzvkeg/0.jpg)](https://youtu.be/muBYwZzvkeg?t=0s)
