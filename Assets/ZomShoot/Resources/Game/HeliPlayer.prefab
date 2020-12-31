@@ -735,6 +735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8392083350086019873}
   - component: {fileID: 3745453922632956774}
+  - component: {fileID: 1984515593525625131}
   m_Layer: 0
   m_Name: ZoomCamera
   m_TagString: Untagged
@@ -799,6 +800,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1984515593525625131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642499577997854432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c621ff7319bc7ed49a8fcac7f4561f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posteffectShader: {fileID: 4800000, guid: 7c7e394178cbf4d468240b46c314fb04, type: 3}
 --- !u!1 &1808342020372009414
 GameObject:
   m_ObjectHideFlags: 0
