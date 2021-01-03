@@ -18,12 +18,6 @@ public class SubStage
     }
 }
 
-public class FieldStateData
-{
-    public int SubStageId = 0;
-    public List<SubStage> SubStageList = null;
-}
-
 [PrefabPath("Field/{0}")]
 public class Field : MonoBehaviour
 {
