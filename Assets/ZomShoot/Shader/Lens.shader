@@ -41,15 +41,28 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-				fixed2 offset = (i.uv - 0.5) * 0.0125;
-				fixed2 offset2 = offset * 2;
-                fixed3 col = tex2D(_MainTex, i.uv - offset2).rgb
-					+ tex2D(_MainTex, i.uv - offset).rgb * 4
-					+ tex2D(_MainTex, i.uv).rgb * 7
-					+ tex2D(_MainTex, i.uv - offset).rgb * 4
-					+ tex2D(_MainTex, i.uv - offset2).rgb;
-                // just invert the colors
-				col = col / 17.f;
+				fixed2 offset1 = (i.uv - 0.5) * 0.0125;
+				fixed2 offset05 = offset1 * 0.5f;
+				fixed2 offset15 = offset1 * 1.5f;
+				fixed2 offset2 = offset1 * 2;
+
+				fixed3 col = tex2D(_MainTex, i.uv + offset2).rgb * float3(0, 0.2f, 0.5f)
+					+ tex2D(_MainTex, i.uv + offset15).rgb * float3(0, 0.2f, 0.3f)
+					+ tex2D(_MainTex, i.uv + offset1).rgb * float3(0, 0.2f, 0.25f)
+					+ tex2D(_MainTex, i.uv + offset05).rgb * float3(0, 0.2f, 0.2f)
+					+ tex2D(_MainTex, i.uv).rgb * float3(0.25f, 0.2f, 0.25f)
+					+ tex2D(_MainTex, i.uv - offset05).rgb * float3(0.2f, 0.2f, 0)
+					+ tex2D(_MainTex, i.uv - offset1).rgb * float3(0.25f, 0.2f, 0)
+					+ tex2D(_MainTex, i.uv - offset15).rgb * float3(0.3f, 0.2f, 0)
+					+ tex2D(_MainTex, i.uv - offset2).rgb * float3(0.5f, 0.2f, 0);
+				col = col / 1.4f;
+
+				//fixed3 col = tex2D(_MainTex, i.uv + offset1).rgb * float3(0, 0, 1.f)
+				//	+ tex2D(_MainTex, i.uv).rgb * float3(0, 1.f, 0)
+				//	+ tex2D(_MainTex, i.uv - offset1).rgb * float3(1.f, 0, 0);
+				//col = col / 1.4f;
+
+
 				//fixed4 col = fixed4((i.uv - 0.5) * 0.1, 0, 1);
                 return fixed4(col, 1);
             }
